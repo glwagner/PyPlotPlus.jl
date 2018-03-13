@@ -8,10 +8,11 @@ using PyPlot, PyCall
 
 export makesquare!, ticksoff!, removespines!, getbasicoutput, axisright!, PyObject
 
-@pyimport warnings
-@pyimport numpy.ma as ma                                                                                                
+#@pyimport warnings
+#warnings.filterwarnings("ignore")
 
-warnings.filterwarnings("ignore")
+#@pyimport numpy.ma as ma                                                                                                
+
 #PyObject(a::NullableArrays.NullableArray) = pycall(ma.array, Any, a.values, mask=a.isnull) 
                                                                                                                         
 makesquare!(ax) = ax[:set_aspect](1, adjustable="box")
