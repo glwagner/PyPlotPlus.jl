@@ -4,7 +4,7 @@ module PyPlotPlus
 
 using PyPlot, PyCall
 
-import NullableArrays
+#import NullableArrays
 
 export makesquare!, ticksoff!, removespines!, getbasicoutput, axisright!, PyObject
 
@@ -12,7 +12,7 @@ export makesquare!, ticksoff!, removespines!, getbasicoutput, axisright!, PyObje
 @pyimport numpy.ma as ma                                                                                                
 
 warnings.filterwarnings("ignore")
-PyObject(a::NullableArrays.NullableArray) = pycall(ma.array, Any, a.values, mask=a.isnull) 
+#PyObject(a::NullableArrays.NullableArray) = pycall(ma.array, Any, a.values, mask=a.isnull) 
                                                                                                                         
 makesquare!(ax) = ax[:set_aspect](1, adjustable="box")
 makesquare!(axs::AbstractArray) = for ax in axs; makesquare!(ax); end
