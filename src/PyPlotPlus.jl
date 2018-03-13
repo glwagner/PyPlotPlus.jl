@@ -1,10 +1,8 @@
 __precompile__()
 
-using PyPlot
-
 module PyPlotPlus
 
-using PyCall, NullableArrays
+using PyPlot, PyCall, NullableArrays
 
 export makesquare!, ticksoff!, removespines!, getbasicoutput, axisright!, PyObject
 
