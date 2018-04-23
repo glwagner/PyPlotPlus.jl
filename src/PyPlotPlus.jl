@@ -4,17 +4,8 @@ module PyPlotPlus
 
 using PyPlot, PyCall
 
-#import NullableArrays
+export makesquare!, ticksoff!, removespines!, getbasicoutput, axisright!, PyObject, tightshow
 
-export makesquare!, ticksoff!, removespines!, getbasicoutput, axisright!, PyObject
-
-#@pyimport warnings
-#warnings.filterwarnings("ignore")
-
-#@pyimport numpy.ma as ma                                                                                                
-
-#PyObject(a::NullableArrays.NullableArray) = pycall(ma.array, Any, a.values, mask=a.isnull) 
-                                                                                                                        
 makesquare!(ax) = ax[:set_aspect](1, adjustable="box")
 makesquare!(axs::AbstractArray) = for ax in axs; makesquare!(ax); end
                                                                                                                         
@@ -29,10 +20,12 @@ function removespines!(ax)
 end
                                                                                                                         
 function axisright!(ax)
-  ax[:tick_params](axis="y", which="both", left=false, labelleft=false, right=true, labelright=true)                                                                                        
+  ax[:tick_params](axis="y", which="both", left=false, labelleft=false, right=true, labelright=true)
   ax[:yaxis][:set_label_position]("right")
-end                                                                                                                     
-                                                                                                                        
+end
+
 removespines!(axs::AbstractArray) = for ax in axs; removespines!(ax); end
 
-end
+tightshow(pausetime=0.01) = pause(pausetime); tight_layout(); pause(pausetime)
+
+end # module
