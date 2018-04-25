@@ -26,6 +26,11 @@ end
 
 removespines!(axs::AbstractArray) = for ax in axs; removespines!(ax); end
 
-tightshow(pausetime=0.01) = pause(pausetime); tight_layout(); pause(pausetime)
+function tightshow(pausetime=0.01)
+  pause(pausetime)
+  tight_layout()
+  pause(pausetime)
+  nothing
+end
 
 end # module
