@@ -16,15 +16,10 @@ function usecmbright()
   nothing
 end
 
-function scalartickformat(ax=gca())
-  ax[:get_xaxis]()[:set_major_formatter](matplotlib[:ticker][:ScalarFormatter]())
-  ax[:get_xaxis]()[:set_minor_formatter](matplotlib[:ticker][:NullFormatter]())
-  nothing
-end
-
-function scalartickformat(ax=gca())
-  ax[:get_xaxis]()[:set_major_formatter](matplotlib[:ticker][:ScalarFormatter]())
-  ax[:get_xaxis]()[:set_minor_formatter](matplotlib[:ticker][:NullFormatter]())
+function scalartickformat(axis, ax=gca())
+  axiscmd = Symbol(:get_, axis, :axis)
+  ax[axiscmd]()[:set_major_formatter](matplotlib[:ticker][:ScalarFormatter]())
+  ax[axiscmd]()[:set_minor_formatter](matplotlib[:ticker][:NullFormatter]())
   nothing
 end
 
