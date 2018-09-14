@@ -1,5 +1,3 @@
-__precompile__()
-
 module PyPlotPlus
 
 using PyPlot, PyCall
