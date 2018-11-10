@@ -48,11 +48,7 @@ makesquare(ax=gca()) = aspectratio(1, ax)
 makesquare(axs::AbstractArray) = for ax in axs; makesquare(ax); end
 
 function setticks(ax, side, turnon)
-  if side in ["top", "bottom"]
-    axiskw = "x"
-  elseif side in ["left", "right"]
-    axiskw = "y"
-  end
+  axiskw = side in ["top", "bottom"] ? "x" : "y"
   sidekw = Symbol(side)
   labelsidekw = Symbol(:label, side)
   keywords = Dict(:axis=>axiskw, :which=>"both", sidekw=>turnon, labelsidekw=>turnon)
@@ -100,7 +96,7 @@ function removespines(ax=gca())
 end
 
 "Remove all spines except bottom and left spines."
-function cornerspines(ax=gca(); side="left", horizontal="botttom")
+function cornerspines(ax=gca(); side="left", horizontal="bottom")
   if !(side == "left" || side == "right")
     throw("side must be left or right")
   end
@@ -112,11 +108,9 @@ function cornerspines(ax=gca(); side="left", horizontal="botttom")
     removespine(ax, spine)
   end
 
-  tickson(ax, horizontal)
-  tickson(ax, side)
+  horizontal == "bottom" || axistop(ax)
+  side == "left" || axisright(ax)
 
-  ax[:xaxis][:set_label_position](horizontal)
-  ax[:yaxis][:set_label_position](side)
   nothing
 end
 
