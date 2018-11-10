@@ -58,12 +58,18 @@ end
 
 tickson(ax, side) = setticks(ax, side, true)
 ticksoff(ax, side) = setticks(ax, side, false)
-ticksoff(ax::PyCall.PyObject) = ax[:tick_params](bottom=false, left=false, labelbottom=false, labelleft=false)
 ticksoff(axs::AbstractArray) = for ax in axs; ticksoff(ax); end
+
+function ticksoff(ax::PyCall.PyObject)
+  for side in ["top", "bottom", "left", "right"]
+    ticksoff(ax, side)
+  end
+  nothing
+end
 
 function ticksoff(side::Union{Symbol,AbstractString})
   ax = gca()
-  keywords = Dict(Symbol(side)=>false)
+  keywords = Dict(Symbol(side)=>false, Symbol(:label, side)=>false)
   ax[:tick_params](keywords)
   nothing
 end
