@@ -62,7 +62,7 @@ function toggleleftticks(ax, toggle)
 end
 
 function togglebottomticks(ax, toggle)
-  ax[:tick_params](bottom=toggle, labelbottomleft=toggle, top=!toggle, labeltop=!toggle)
+  ax[:tick_params](bottom=toggle, labelbottom=toggle, top=!toggle, labeltop=!toggle)
   nothing
 end
 
