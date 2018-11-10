@@ -47,11 +47,8 @@ aspectratio(a, ax=gca(); adjustable="box") = ax[:set_aspect](a, adjustable=adjus
 makesquare(ax=gca()) = aspectratio(1, ax)
 makesquare(axs::AbstractArray) = for ax in axs; makesquare(ax); end
 
-function setticks(ax, side, turnon)
-  axiskw = side in ["top", "bottom"] ? "x" : "y"
-  sidekw = Symbol(side)
-  labelsidekw = Symbol(:label, side)
-  keywords = Dict(:axis=>axiskw, :which=>"both", sidekw=>turnon, labelsidekw=>turnon)
+function setticks(ax, side, toggle)
+  keywords = Dict(Symbol(side)=>toggle, Symbol(:label, side)=>toggle)
   ax[:tick_params](keywords)
   nothing
 end
@@ -136,7 +133,8 @@ function sidespine(ax=gca(); side="left")
     removespine(ax, spine)
   end
 
-  togglebottomticks(ax, false)
+  setticks(ax, :bottom, false)
+  setticks(ax, :top, false)
   side == "left" || toggleleftticks(ax, false)
   side == "left" || ax[:yaxis][:set_label_position](side)
   nothing
