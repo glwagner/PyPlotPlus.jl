@@ -100,17 +100,22 @@ function removespines(ax=gca())
 end
 
 "Remove all spines except bottom and left spines."
-function cornerspines(ax=gca(); side="left")
+function cornerspines(ax=gca(); side="left", horizontal="botttom")
   if !(side == "left" || side == "right")
     throw("side must be left or right")
   end
 
   sidetoremove = side == "left" ? "right" : "left"
-  for spine in ["top", sidetoremove]
+  horztoremove = horizontal == "bottom" ? "top" : "bottom"
+
+  for spine in [horztoremove, sidetoremove]
     removespine(ax, spine)
   end
-  tickson(ax, "bottom")
+
+  tickson(ax, horizontal)
   tickson(ax, side)
+
+  ax[:xaxis][:set_label_position](horizontal)
   ax[:yaxis][:set_label_position](side)
   nothing
 end
