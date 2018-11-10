@@ -140,12 +140,17 @@ end
 function axisright(ax=gca())
   ax[:tick_params](axis="y", which="both", left=false, labelleft=false, right=true, labelright=true)
   ax[:yaxis][:set_label_position]("right")
+  nothing
 end
 
 "Move axis labels and ticks to the top."
 function axistop(ax=gca())
-  ax[:tick_params](axis="x", which="both", bottom=false, labelbottom=false, top=true, labeltop=true)
-  ax[:xaxis][:set_label_position]("top")
+  #ax[:tick_params](axis="x", which="both", bottom=false, labelbottom=false, top=true, labeltop=true)
+  ax[:xaxis][:tick_top]()
+  try; ax[:xaxis][:set_label_position]("top")
+  catch;
+  end
+  nothing
 end
 
 
