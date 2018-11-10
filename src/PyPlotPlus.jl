@@ -61,7 +61,7 @@ end
 tickson(ax, side) = setticks(ax, side, true)
 
 ticksoff(ax, side) = setticks(ax, side, false)
-ticksoff(ax) = ax[:tick_params](bottom=false, left=false, labelbottom=false, labelleft=false)
+ticksoff(ax::PyCall.PyObject) = ax[:tick_params](bottom=false, left=false, labelbottom=false, labelleft=false)
 ticksoff(axs::AbstractArray) = for ax in axs; ticksoff(ax); end
 
 function ticksoff(side::Union{Symbol,AbstractString})
