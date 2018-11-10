@@ -108,7 +108,7 @@ function cornerspines(ax=gca(); side="left")
 end
 
 function sidespine(ax=gca(); side="left")
-  removeside = side == "left" ? "right" : "left"
+  sidetoremove = side == "left" ? "right" : "left"
   for spine in ["top", "bottom", sidetoremove]
     removespine(ax, spine)
   end
