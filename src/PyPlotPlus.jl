@@ -56,6 +56,16 @@ function setticks(ax, side, turnon)
   nothing
 end
 
+function toggleleftticks(ax, toggle)
+  ax[:tick_params](left=toggle, labelleft=toggle, right=!toggle, labelright=!toggle)
+  nothing
+end
+
+function togglebottomticks(ax, toggle)
+  ax[:tick_params](bottom=toggle, labelbottomleft=toggle, top=!toggle, labeltop=!toggle)
+  nothing
+end
+
 tickson(ax, side) = setticks(ax, side, true)
 ticksoff(ax, side) = setticks(ax, side, false)
 ticksoff(axs::AbstractArray) = for ax in axs; ticksoff(ax); end
@@ -125,8 +135,12 @@ function sidespine(ax=gca(); side="left")
   for spine in ["top", "bottom", sidetoremove]
     removespine(ax, spine)
   end
-  ticksoff(ax, "bottom")
-  ticksoff(ax, sidetoremove)
+
+  togglebottomticks(ax, false)
+
+  removeleft = side == "left" ? false : true
+  toggleleftticks(ax, removeleft)
+
   tickson(ax, side)
   ax[:yaxis][:set_label_position](side)
   nothing
@@ -150,8 +164,7 @@ end
 
 "Move axis labels and ticks to the top."
 function axistop(ax=gca())
-  #ax[:tick_params](axis="x", which="both", bottom=false, labelbottom=false, top=true, labeltop=true)
-  ax[:xaxis][:tick_top]()
+  ax[:tick_params](axis="x", which="both", bottom=false, labelbottom=false, top=true, labeltop=true)
   try; ax[:xaxis][:set_label_position]("top")
   catch;
   end
