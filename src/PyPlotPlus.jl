@@ -10,7 +10,9 @@ export
   tickparams,
 
   axisright, 
+  axistop,
   invertaxis, 
+
   removespine, 
   removespines, 
   cornerspines, 
@@ -59,7 +61,6 @@ function setticks(ax, side, turnon)
 end
 
 tickson(ax, side) = setticks(ax, side, true)
-
 ticksoff(ax, side) = setticks(ax, side, false)
 ticksoff(ax::PyCall.PyObject) = ax[:tick_params](bottom=false, left=false, labelbottom=false, labelleft=false)
 ticksoff(axs::AbstractArray) = for ax in axs; ticksoff(ax); end
@@ -140,6 +141,13 @@ function axisright(ax=gca())
   ax[:tick_params](axis="y", which="both", left=false, labelleft=false, right=true, labelright=true)
   ax[:yaxis][:set_label_position]("right")
 end
+
+"Move axis labels and ticks to the top."
+function axistop(ax=gca())
+  ax[:tick_params](axis="x", which="both", bottom=false, labelbottom=false, top=true, labeltop=true)
+  ax[:yaxis][:set_label_position]("top")
+end
+
 
 "Remove spines from all the axes in the array `axs`."
 removespines(axs::AbstractArray) = for ax in axs; removespines(ax); end
