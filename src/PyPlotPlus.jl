@@ -137,12 +137,8 @@ function sidespine(ax=gca(); side="left")
   end
 
   togglebottomticks(ax, false)
-
-  removeleft = side == "left" ? false : true
-  toggleleftticks(ax, removeleft)
-
-  tickson(ax, side)
-  ax[:yaxis][:set_label_position](side)
+  side == "left" || toggleleftticks(ax, false)
+  side == "left" || ax[:yaxis][:set_label_position](side)
   nothing
 end
 
