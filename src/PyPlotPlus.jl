@@ -64,6 +64,13 @@ ticksoff(ax, side) = setticks(ax, side, false)
 ticksoff(ax) = ax[:tick_params](bottom=false, left=false, labelbottom=false, labelleft=false)
 ticksoff(axs::AbstractArray) = for ax in axs; ticksoff(ax); end
 
+function ticksoff(side::Union{Symbol,AbstractString})
+  ax = gca()
+  keywords = Dict(Symbol(side)=>false)
+  ax[:tick_params](keywords)
+  nothing
+end
+
 "Invert the axis specified by keyword `axis`. Defaults to the yaxis."
 function invertaxis(ax=gca(); axis="y")
   if axis == "y"
