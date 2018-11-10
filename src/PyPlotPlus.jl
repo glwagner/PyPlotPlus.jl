@@ -1,10 +1,30 @@
 module PyPlotPlus
 
-using PyPlot, PyCall
+export 
+  usecmbright, 
+  scalartickformat, 
+  tightshow, 
 
-export makesquare, ticksoff, tickson, axisright, tightshow, axisright,
-       removespine, removespines, cornerspines, bottomspine, invertaxis, 
-       aspectratio, usecmbright, scalartickformat, tickparams
+  ticksoff, 
+  tickson,
+  tickparams,
+
+  axisright, 
+  invertaxis, 
+  removespine, 
+  removespines, 
+  cornerspines, 
+  bottomspine, 
+  sidespine,
+
+  aspectratio, 
+  makesquare 
+
+using 
+  PyCall,
+  Reexport
+
+@reexport using PyPlot
 
 tickparams(ax=gca(); kwds...) = ax[:tick_params](; kwds...)
 
@@ -82,6 +102,18 @@ function cornerspines(ax=gca(); side="left")
     removespine(ax, spine)
   end
   tickson(ax, "bottom")
+  tickson(ax, side)
+  ax[:yaxis][:set_label_position](side)
+  nothing
+end
+
+function sidespine(ax=gca(); side="left")
+  removeside = side == "left" ? "right" : "left"
+  for spine in ["top", "bottom", sidetoremove]
+    removespine(ax, spine)
+  end
+  ticksoff(ax, "bottom")
+  ticksoff(ax, sidetoremove)
   tickson(ax, side)
   ax[:yaxis][:set_label_position](side)
   nothing
