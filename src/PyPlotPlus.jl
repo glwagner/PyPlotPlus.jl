@@ -67,7 +67,7 @@ tickson(ax, side) = setticks(ax, side, true)
 ticksoff(ax, side) = setticks(ax, side, false)
 ticksoff(axs::AbstractArray) = for ax in axs; ticksoff(ax); end
 
-function ticksoff(ax::PyCall.PyObject)
+function ticksoff(ax::PyCall.PyObject=gca())
   for side in ["top", "bottom", "left", "right"]
     ticksoff(ax, side)
   end
